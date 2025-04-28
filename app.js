@@ -1,21 +1,27 @@
-const { createReadStream } = require('fs')
+const express = require('express')
+const app = express()
 
-
-const stream = createReadStream('./content/big.txt', {
-    highWaterMark : 90000,
-    encoding : 'utf-8'
+app.get('/',(req,res)=>{
+    res.status(200).send('Home Page')
 })
 
-// default 64kb
-// last buffer - remainder
-// highwaterMark - control size
-// const stream = createReadStream('./content/big.txt', ${ highWaterMark : 90000 })
-// const stream = createReadStream('../content/big.txt', ${ encoding : 'utf-8' })
-
-stream.on('data',(result)=> {
-    console.log(result)
+app.get('/about',(req,res)=> {
+    res.status(200).send('About Page')
 })
 
-stream.on('error', (result) => {
-    console.log(result);   
+app.all('*',(req,res)=> {
+    res.status(404).send('Page not found')
 })
+
+app.listen(5000, ()=> {
+    console.log('Server is listening on port 5000...');
+})
+
+// app.get
+// app.post
+// app.put
+// app.delete
+// app.all
+// app.use
+// app.listen
+

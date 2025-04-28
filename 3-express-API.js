@@ -52,7 +52,7 @@ app.get('/api/v1/query',(req,res)=> {
 
     // Handles if search does not match url
     if(sortedProducts.length < 1) {
-        // res.status(200).send('No product matched your search')
+        // res.status(200).send('No product matched your search') -> this can also be used
         return res.status(200).json({success:true,data: []})
     }
 

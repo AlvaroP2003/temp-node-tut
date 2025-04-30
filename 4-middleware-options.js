@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const logger = require('./logger')
-const authorize = require('./5-authorization')
+const authorize = require('./authorization')
 
 // !! req => middleware => res
 

@@ -1,11 +1,18 @@
 const express = require('express')
 const app = express()
 const logger = require('./logger')
+const authorize = require('./5-authorization')
 
 // !! req => middleware => res
 
+// 1. use vs route
+// 2. options - our own / express / third party
+
 // method which applies logger function to all routes
-app.use(logger)
+// app.use([logger,authorize])
+
+// serve static files to express app
+// app.use(express.static('./public'))
 
 app.get('/',(req,res) => {
     res.send('Home')
@@ -19,8 +26,8 @@ app.get('/api/products', (req,res) => {
     res.send('Products')
 })
 
-app.get('/api/items', (req,res) => {
-    res.send('Items')
+app.get('/api/items',[logger,authorize],(req,res) => {
+    res.send(`Welcome to items ${req.query.user}`)
 })
 
 app.listen(5000, ()=> {
